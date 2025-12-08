@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Editor-specific
+.vscode/
+.idea/
+
+.claude/
+.codetracker/
+
+# Lock files
+uv.lock

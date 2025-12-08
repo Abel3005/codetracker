@@ -1,0 +1,12 @@
+[project]
+name = "developer-risk-manage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.7"
+certifi= "2025.11.12"
+charset-normalizer="3.4.4"
+idna="3.11"
+requests="2.32.5"
+urllib3="2.6.0"
+dependencies = []
