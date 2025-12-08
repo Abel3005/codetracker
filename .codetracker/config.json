@@ -1,0 +1,52 @@
+{
+  "version": "3.0",
+  "server_url": "http://localhost:5000",
+  "ignore_patterns": [
+    "*.pyc",
+    "__pycache__",
+    ".git",
+    ".codetracker",
+    ".claude",
+    "node_modules",
+    ".env",
+    "*.log",
+    ".DS_Store",
+    "*.class",
+    "*.o",
+    "build/",
+    "dist/",
+    "*.exe"
+  ],
+  "track_extensions": [
+    ".py",
+    ".js",
+    ".java",
+    ".cpp",
+    ".c",
+    ".h",
+    ".cs",
+    ".go",
+    ".rs",
+    ".rb",
+    ".php",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".vue",
+    ".swift",
+    ".kt",
+    ".md",
+    ".txt"
+  ],
+  "max_file_size": 1048576,
+  "auto_snapshot": {
+    "enabled": true,
+    "min_interval_seconds": 30,
+    "skip_patterns": [
+      "^help",
+      "^what is",
+      "^explain"
+    ],
+    "only_on_changes": false
+  }
+}

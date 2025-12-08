@@ -1,0 +1,20 @@
+{
+  "name": "codetracker-claude-hooks",
+  "version": "4.0.0",
+  "description": "CodeTracker hooks for Claude Code integration",
+  "main": "user_prompt_submit.js",
+  "scripts": {
+    "test": "node user_prompt_submit.js < test_input.json"
+  },
+  "keywords": [
+    "codetracker",
+    "claude-code",
+    "hooks",
+    "version-control"
+  ],
+  "author": "CodeTracker",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
