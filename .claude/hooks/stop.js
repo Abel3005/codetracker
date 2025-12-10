@@ -128,7 +128,7 @@ function calculateDiff(currentFiles, previousFiles) {
   if (!previousFiles) {
     for (const [filePath, info] of Object.entries(currentFiles)) {
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'added',
         hash: info.hash,
         content: info.content,
@@ -146,7 +146,7 @@ function calculateDiff(currentFiles, previousFiles) {
     if (!previousFile) {
       // New file
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'added',
         hash: info.hash,
         content: info.content,
@@ -156,7 +156,7 @@ function calculateDiff(currentFiles, previousFiles) {
     } else if (previousFile.hash !== info.hash) {
       // Modified file (hash changed)
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'modified',
         hash: info.hash,
         content: info.content,
@@ -172,7 +172,7 @@ function calculateDiff(currentFiles, previousFiles) {
   for (const filePath of Object.keys(previousFiles)) {
     if (!currentFiles[filePath]) {
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'deleted',
         previous_hash: previousFiles[filePath].hash,
         lines_removed: 0
@@ -194,7 +194,7 @@ async function createPostPromptSnapshot(sessionData, timestamp) {
   const credentials = loadJSON(credentialsFile);
 
   // Validate configuration and credentials
-  if (!config || !credentials || !credentials.api_key || !credentials.current_project_id) {
+  if (!config || !credentials || !credentials.api_key || !credentials.current_project_hash) {
     return null;
   }
 
@@ -220,8 +220,8 @@ async function createPostPromptSnapshot(sessionData, timestamp) {
         'X-API-Key': credentials.api_key
       },
       body: JSON.stringify({
-        project_id: credentials.current_project_id,
-        message: `[AUTO-POST] ${sessionData.prompt.substring(0, 100)}`,
+        project_hash: credentials.current_project_hash,
+        message: `[AUTO-POST] ${sessionData.prompt}`,
         changes,
         parent_snapshot_id: sessionData.pre_snapshot_id,
         claude_session_id: sessionData.claude_session_id
@@ -255,7 +255,7 @@ async function createPostPromptSnapshot(sessionData, timestamp) {
         'X-API-Key': credentials.api_key
       },
       body: JSON.stringify({
-        project_id: credentials.current_project_id,
+        project_hash: credentials.current_project_hash,
         prompt_text: sessionData.prompt,
         claude_session_id: sessionData.claude_session_id,
         pre_snapshot_id: sessionData.pre_snapshot_id,

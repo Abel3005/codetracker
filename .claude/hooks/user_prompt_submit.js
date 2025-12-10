@@ -127,7 +127,7 @@ function calculateDiff(currentFiles, previousFiles) {
   if (!previousFiles) {
     for (const [filePath, info] of Object.entries(currentFiles)) {
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'added',
         hash: info.hash,
         content: info.content,
@@ -145,7 +145,7 @@ function calculateDiff(currentFiles, previousFiles) {
     if (!previousFile) {
       // New file
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'added',
         hash: info.hash,
         content: info.content,
@@ -155,7 +155,7 @@ function calculateDiff(currentFiles, previousFiles) {
     } else if (previousFile.hash !== info.hash) {
       // Modified file (hash changed)
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'modified',
         hash: info.hash,
         content: info.content,
@@ -171,7 +171,7 @@ function calculateDiff(currentFiles, previousFiles) {
   for (const filePath of Object.keys(previousFiles)) {
     if (!currentFiles[filePath]) {
       changes.push({
-        path: filePath,
+        file_path: filePath,
         type: 'deleted',
         previous_hash: previousFiles[filePath].hash,
         lines_removed: 0
@@ -194,7 +194,7 @@ async function createPrePromptSnapshot(prompt, sessionId, timestamp) {
   const credentials = loadJSON(credentialsFile);
 
   // Validate configuration and credentials
-  if (!config || !credentials || !credentials.api_key || !credentials.current_project_id) {
+  if (!config || !credentials || !credentials.api_key || !credentials.current_project_hash) {
     return null;
   }
 
@@ -233,8 +233,8 @@ async function createPrePromptSnapshot(prompt, sessionId, timestamp) {
         'X-API-Key': credentials.api_key
       },
       body: JSON.stringify({
-        project_id: credentials.current_project_id,
-        message: `[AUTO-PRE] ${prompt.substring(0, 100)}`,
+        project_hash: credentials.current_project_hash,
+        message: `[AUTO-PRE] ${prompt}`,
         changes,
         claude_session_id: sessionId
       })
